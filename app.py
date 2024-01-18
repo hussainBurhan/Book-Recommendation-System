@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import pickle
 import numpy as np
 
+# Load data and models from pickle files
 popular_df = pickle.load(open('popular.pkl', 'rb'))
 pt = pickle.load(open('pt.pkl', 'rb'))
 books = pickle.load(open('books.pkl', 'rb'))
@@ -9,7 +10,7 @@ similarity_scores = pickle.load(open('similarity_scores.pkl', 'rb'))
 
 app = Flask(__name__)
 
-
+# Route to display popular books on the homepage
 @app.route('/')
 def index():
     return render_template('index.html',
@@ -20,10 +21,12 @@ def index():
                            rating=list(popular_df['avg_rating'].values)
                            )
 
+# Route to display recommendation form
 @app.route('/recommend')
 def recommend_ui():
     return render_template('recommend.html')
 
+# Route to handle recommendation form submission
 @app.route('/recommend_books', methods=['POST'])
 def recommend():
     user_input = request.form['user_input']
@@ -41,5 +44,6 @@ def recommend():
         print(data)
     return render_template('recommend.html', data=data)
 
+# Run the Flask app
 if __name__ == '__main__':
     app.run(port=5001, debug=True)
