@@ -45,5 +45,5 @@ def recommend():
     return render_template('recommend.html', data=data)
 
 # Run the Flask app
-if __name__ == '__main__':
-    app.run(port=5001, debug=True)
+#if __name__ == '__main__':
+ #   app.run(port=5001, debug=True)
